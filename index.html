@@ -3,44 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma première app Vue</title>
+    <title>Cafe with a Vue</title>
 </head>
 <body>
    
     <div id="app">
-        <h1>Vue Mart</h1>
-        
-        <h2>Panier d'achat</h2>
-        <ul>    
-            <li>Pomme: {{ costOfApples }}€</li>
-            <li>Bananes: {{ costOfBananas }}€</li>
-            <li>Noix de coco: {{ costOfCoconuts }}€</li>
-        </ul>
-       <p>Total :{{ costOfApples + costOfBananas + costOfCoconuts }} €</li>
+        <h1>{{ restaurantName }}</h1>
+        <p class ="description">
+            Bienvenue dans notre café {{ restaurantName }}! Nous sommes réputés pour
+			notre pain et nos merveilleuses pâtisseries. Faites vous plaisir dès le
+			matin ou avec un goûter réconfortant. Mais attention, vous verrez qu'il
+			est difficile de s'arrêter.
+        </p>
 
-        <h2>Horaires d'ouverture</h2>
-        <p>Dimanche 10h - 16h</p>
-        <p>Du Lundi au Vendredi 09h - 17h</p>
-        <p>Samedi 9h30 - 18h</p>    
-    </div>
+        <section class="menu">
+            <h2>Menu</h2>
+            <div>
+                <h3>Nom de l'article</h3>
+                <p>En stock</p>
+                <p>En rupture de stock</p>
+                <div>
+                    <label for="add-item-quantity">Quantité</label>
+                    <input id="add-item-quantity" type="number" />
+                    <button>Ajouter un panier d'achat</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="shopping-cart">
+            <h2>Panier d'achat : 0 articles</h2>
+        </aside>
+
+        <h2>Contactez-nous</h2>
+        <p>Adresse : {{ adresse }}</p>
+        <p>Téléphone : {{ phone }}</p>
+        <p>Email : {{ email }}</p>
+        <p>Horaires : </p>
+        <ul>
+            <li>L-V: 06:00 à 16:00</li>
+            <li>Samedi: 07:00 à 14:00</li>
+            <li>Dimanche: 07:00 à 12:00</li>
+        </ul>
+
+        <footer class="footer">
+            <p>Copyright {{ restaurantName }} 2024</p>
+        </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-
     <script>
           const app = new Vue({
             el: '#app',
             data: {
-                costOfApples: 6,
-                costOfBananas: 2,
-                costOfCoconuts: 8
+                adresse: "18 avenue du Beurre, Paris, France",
+                email: "hello@cafewithavue.bakery",
+                phone: "01 88 88 88 88",
+                restaurantName: "La belle vue",
+                simpleMenu: [
+                    {
+                        name: "Croissant",
+                        image: {
+                            source:"./image/croissant.jpg",
+                            alt: "Un croissant"
+                        },
+                        inStock: true,
+                        quantity: 1
+                    },
+                    {
+                        name:'Baguette de pain',
+                        image: {
+                            source:"./images/baguette.jpg",
+                            alt: "Une baguette de pain"
+                        },
+                        inStock: true,
+                        quantity: 1
+                    },
+                    {
+                        name: "Éclair",
+                        image: {
+                            source: "./images/eclair.jpg"
+                        },
+                        inStock: false,
+                        quantity: 1
+                    }
+                ]
             },
             computed: {
-                totalAmount(){
-                    return this.costOfApples + this.costOfBananas + this.costOfCoconuts
+                copyright(){
+                    const currentYear = new Date().getFullYear()
+                    return `Copyright ${this.restaurantName} ${currentYear}`
                 }
             }
-          })
-
+        })
     </script>
 </body>
 </html>
